@@ -1,4 +1,5 @@
 from BirthBook import variables as v
+from ctypes.wintypes import PINT
 
 class maths (object):
     
@@ -9,7 +10,7 @@ class maths (object):
     birth_symbols = v.vriables().birth_symbols
 
     
-# data list structure
+# data structure
     @staticmethod
     def view(name, birth):
         ln = len(list(name))   # name length
@@ -33,7 +34,7 @@ class maths (object):
         
         f = open(v.vriables.file, "r")
         array = [row.rstrip() for row in f]
-        i = 0
+
         for i in range(len(array)):
             print(array[i])
 
@@ -50,25 +51,30 @@ class maths (object):
 # Delete string from list
     @staticmethod
     def delete_birthday():
+        birth_list = []
         f = open(v.vriables.file, 'r')
         array = [row.rstrip() for row in f]
-        i = 0
-        for i in range(len(array)):
-            print(str(i) + '  ' + array[i])
+        
+        for j in range(len(array)):
+            s = (str(j) + ' ' + array[j])
+            birth_list.append(s)
+            print(birth_list[j])
 
-        num = input('\n' + "Please set integer that you want delete...")
-        if num not in v.vriables.integers:
-            print("There are not such integer.")
+        num = int(input('\n' + "Please set integer for delete..."))
+        print("You choosed - " + str(num))
+
+        if num in v.vriables.integers:
+            print("1. Entry is incorrect. Try again.")
+        elif num <= -1 and num >= (len(birth_list) + 1):
+            print("2. Entry is incorrect. Try again.")
         else:
-            output = []
-            for line in f:
-                if not num in line[0]:
-                    output.append(line)
-            f.close()
-            
+            birth_list.pop(num)
             f = open(v.vriables.file, 'w')
-            f.writelines(output)
+            for line in range(len(birth_list)):
+                f.writelines(birth_list[line] + '\n')
             f.close()
+            return True
+        # TODO after deleting data viewing incorrect
     
     
 # Clear data

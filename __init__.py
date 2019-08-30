@@ -43,12 +43,15 @@ def main():
         
         
         elif choose == '4':
-            m.delete_birthday()
-            y_answer =  input('Want to delete more?')
-            while (y_answer in v.right_list):
-                name = input('Input integer for delete: ')
-                m.delete_birthday()
+            answer = m.delete_birthday()
+            if answer:
                 y_answer =  input('Want to delete more?')
+                while (y_answer in v.right_list):
+                    name = input('Input integer for delete: ')
+                    m.delete_birthday()
+                    y_answer =  input('Want to delete more?')
+            else:
+                print("fail")
             k.press_and_release('enter', False, False)
         
             
